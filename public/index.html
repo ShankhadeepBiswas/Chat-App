@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="shortcut icon" href="#">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat-App</title>
 </head>
 <body>
     CHAT APP online!
+    <form id="message-form">
+        <input name="message" type="text" placeholder="Add a message..." required>
+        <button type="submit">Send</button>
+    </form>
+    <button id="Location-btn">Send Location</button>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
 </body>
