@@ -3,12 +3,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index"
+    "start": "nodemon src/index",
+    "push": "git push -u origin master"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bad-words": "^3.0.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
