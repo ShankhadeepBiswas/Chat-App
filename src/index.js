@@ -22,8 +22,8 @@ io.on('connection',(socket)=>{             //socket contains info about connecte
         io.emit('Welcome',msg)        //io sends to all connected clients at once. socket sends to individual.
         callback()
     })
-    socket.on('location',(obj,callback)=>{
-        io.emit('Welcome',`https://www.google.com/maps?q=${obj.lat},${obj.lon}`)
+    socket.on('sendlocation',(obj,callback)=>{
+        io.emit('location-url',`https://www.google.com/maps?q=${obj.lat},${obj.lon}`)
         callback()
     })
     socket.on('disconnect',()=>{
