@@ -4,7 +4,7 @@ const $messageForm = document.querySelector('#message-form')
 const $messageFormInput = $messageForm.querySelector('input')
 const $messageFormButton = $messageForm.querySelector('button')
 const $locationBtn = document.querySelector('#Location-btn')
-const $message = document.querySelector('#message')
+const $message = document.querySelector('#messages')
 //Templates
 const $msgtemplate = document.querySelector('#msg-template').innerHTML
 const $locationtemplate = document.querySelector('#location-url-template').innerHTML
