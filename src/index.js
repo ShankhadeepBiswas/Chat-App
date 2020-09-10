@@ -16,8 +16,12 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on('connection',(socket)=>{             //socket contains info about connected client
     console.log("Web Socket Connection on!");
     const filter = new Filter()
-    socket.emit('Welcome',generateMsg('Welcome!'))            // sending to client side
-    socket.broadcast.emit('Welcome',generateMsg('A new user has joined!'))
+    socket.on('join',({username,room})=>{
+        socket.join(room)
+        socket.emit('Welcome',generateMsg('Welcome!'))            // sending to client side
+        socket.broadcast.to(room).emit('Welcome',generateMsg( `${username} has joined the chat!`))
+    })
+
     socket.on('Message',(msg,callback)=>{
         if(filter.isProfane(msg)){
             return callback('Profanity is not allowed!');

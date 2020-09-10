@@ -13,7 +13,8 @@ function disableState(){
   $messageFormInput.value =''
   $messageFormButton.setAttribute('disabled','disabled')
 }
-
+//Query String parsing and options
+const {username,room} = Qs.parse(location.search,{ignoreQueryPrefix: true})
 $messageFormInput.addEventListener('input',(e)=>{
   e.preventDefault()
   if($messageFormInput.value == ''){
@@ -66,3 +67,4 @@ socket.on('location-url',(URL)=>{
     createdAt: moment(URL.createdAt).format('h:mm a (L)')})
   $message.insertAdjacentHTML('beforeend',html)
 })
+socket.emit('join',{username,room})
