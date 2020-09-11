@@ -8,6 +8,7 @@ const server = http.createServer(app)
 const socketio = require('socket.io')
 const io = socketio(server)                         //binding socketio server with raw http server
 const {generateMsg,generateLoc} = require('../public/js/message')
+const {addUser,removeUser,getUser,getUsersInRoom} = require('../src/utils/users')
 
 const port = process.env.PORT 
 
@@ -16,10 +17,16 @@ app.use(express.static(path.join(__dirname,'../public')))
 io.on('connection',(socket)=>{             //socket contains info about connected client
     console.log("Web Socket Connection on!");
     const filter = new Filter()
-    socket.on('join',({username,room})=>{
-        socket.join(room)
+    socket.on('join',(options,callback)=>{
+        const {error,user} = addUser({id : socket.id,...options})
+        if(error){
+            callback(error)
+            location.href('/')
+        }
+        socket.join(user.room)
         socket.emit('Welcome',generateMsg('Welcome!'))            // sending to client side
-        socket.broadcast.to(room).emit('Welcome',generateMsg( `${username} has joined the chat!`))
+        socket.broadcast.to(user.room).emit('Welcome',generateMsg( `${user.username} has joined the chat!`))
+        callback()
     })
 
     socket.on('Message',(msg,callback)=>{
@@ -34,7 +41,11 @@ io.on('connection',(socket)=>{             //socket contains info about connecte
         callback()
     })
     socket.on('disconnect',()=>{
-        io.emit('Welcome',generateMsg('The user has left!'))
+        const {user,error} = removeUser(socket.id)
+        if (error){
+         alert(error)
+        }
+        io.emit('Welcome',generateMsg(`${user.username} has left the chat`))
     })
 })
 

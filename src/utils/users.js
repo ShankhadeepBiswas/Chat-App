@@ -12,7 +12,8 @@ const addUser = ({id,username,room})=>{
         return {error : 'Username and Room already taken!'}
     }
     users.push({id,username,room})
-    //return users
+    return { id,username,room }
+    
 }
 const removeUser=(id)=>{
     const index = users.findIndex((user)=>user.id === id)

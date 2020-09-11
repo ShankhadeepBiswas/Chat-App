@@ -67,4 +67,7 @@ socket.on('location-url',(URL)=>{
     createdAt: moment(URL.createdAt).format('h:mm a (L)')})
   $message.insertAdjacentHTML('beforeend',html)
 })
-socket.emit('join',{username,room})
+socket.emit('join',{username,room},(error)=>{
+  if(error)
+    alert(error)
+})
