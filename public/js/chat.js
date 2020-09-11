@@ -29,6 +29,7 @@ $messageFormInput.addEventListener('input',(e)=>{
 
 socket.on('Welcome',(msg)=>{                  // receives from server side
   const html = Mustache.render($msgtemplate,{
+    username: msg.user,
     message : msg.text,
     createdAt : moment(msg.createdAt).format('h:mm a (L)')
   })        //which template to render using Mustache library
@@ -63,6 +64,7 @@ document.querySelector('#Location-btn').addEventListener('click',()=>{
 })
 socket.on('location-url',(URL)=>{
   const html = Mustache.render($locationtemplate,{
+    username:URL.user,
     url: URL.url,
     createdAt: moment(URL.createdAt).format('h:mm a (L)')})
   $message.insertAdjacentHTML('beforeend',html)

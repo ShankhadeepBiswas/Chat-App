@@ -23,20 +23,22 @@ io.on('connection',(socket)=>{             //socket contains info about connecte
             return callback(error)
         }
         socket.join(user.room)
-        socket.emit('Welcome',generateMsg('Welcome!'))            // sending to client side
-        socket.broadcast.to(user.room).emit('Welcome',generateMsg( `${user.username} has joined the chat!`))
+        socket.emit('Welcome',generateMsg('Welcome!','Chat-App'))            // sending to client side
+        socket.broadcast.to(user.room).emit('Welcome',generateMsg( `${user.username} has joined the chat!`,user.username))
         callback()
     })
 
     socket.on('Message',(msg,callback)=>{
+        const user = getUser(socket.id)
         if(filter.isProfane(msg)){
             return callback('Profanity is not allowed!');
         }
-        io.emit('Welcome',generateMsg(msg))        //io sends to all connected clients at once. socket sends to individual.
+        io.to(user.room).emit('Welcome',generateMsg(msg,user.username))        //io sends to all connected clients at once. socket sends to individual.
         callback()
     })
     socket.on('sendlocation',(obj,callback)=>{
-        io.emit('location-url',generateLoc(`https://www.google.com/maps?q=${obj.lat},${obj.lon}`))
+        const user = getUser(socket.id)
+        io.to(user.room).emit('location-url',generateLoc(`https://www.google.com/maps?q=${obj.lat},${obj.lon}`,user.username))
         callback()
     })
     socket.on('disconnect',()=>{

@@ -1,13 +1,15 @@
 const { text } = require("express");
 
-const generateMsg =(text)=>{
+const generateMsg =(text,user)=>{
     return {
+        user,
         text,
         createdAt: new Date().getTime()
     }
 }
-const generateLoc = url =>{
+const generateLoc = (url,user) =>{
     return {
+        user,
         url,
         createdAt: new Date().getTime()
     }
