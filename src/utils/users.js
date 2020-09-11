@@ -11,16 +11,16 @@ const addUser = ({id,username,room})=>{
     if(existingUser){
         return {error : 'Username and Room already taken!'}
     }
-    users.push({id,username,room})
-    return { id,username,room }
-    
+    //Store User
+    const user = { id,username,room }
+    users.push(user)
+    return {user}
+
 }
 const removeUser=(id)=>{
     const index = users.findIndex((user)=>user.id === id)
-    if(id!== -1){
-        return users.splice({id},1)
-    }else{
-        return {error:'No user by that id'}
+    if(index!== -1){
+        return users.splice(index,1)[0]
     }
 }
 const getUser = (id)=>{

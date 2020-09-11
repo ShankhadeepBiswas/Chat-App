@@ -20,8 +20,7 @@ io.on('connection',(socket)=>{             //socket contains info about connecte
     socket.on('join',(options,callback)=>{
         const {error,user} = addUser({id : socket.id,...options})
         if(error){
-            callback(error)
-            location.href('/')
+            return callback(error)
         }
         socket.join(user.room)
         socket.emit('Welcome',generateMsg('Welcome!'))            // sending to client side
@@ -41,11 +40,8 @@ io.on('connection',(socket)=>{             //socket contains info about connecte
         callback()
     })
     socket.on('disconnect',()=>{
-        const {user,error} = removeUser(socket.id)
-        if (error){
-         alert(error)
-        }
-        io.emit('Welcome',generateMsg(`${user.username} has left the chat`))
+        const user = removeUser(socket.id)
+        io.to(user.room).emit('Welcome',generateMsg(`${user.username} has left the chat`))
     })
 })
 
