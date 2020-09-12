@@ -6,6 +6,7 @@ const $messageFormButton = $messageForm.querySelector('button')
 const $locationBtn = document.querySelector('#Location-btn')
 const $message = document.querySelector('#messages')
 //Templates
+const $sidebartemplate = document.querySelector('#sidebar-template').innerHTML
 const $msgtemplate = document.querySelector('#msg-template').innerHTML
 const $locationtemplate = document.querySelector('#location-url-template').innerHTML
 
@@ -34,6 +35,13 @@ socket.on('Welcome',(msg)=>{                  // receives from server side
     createdAt : moment(msg.createdAt).format('h:mm a (L)')
   })        //which template to render using Mustache library
   $message.insertAdjacentHTML('beforeend',html)        //inserting each message in div element
+})
+socket.on('roomData',({room,users})=>{
+  const html = Mustache.render($sidebartemplate,{
+    room,
+    users
+  })
+  document.querySelector('#sidebar').innerHTML= html
 })
 
 $messageForm.addEventListener('submit',(e)=>{
