@@ -3,8 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index",
-    "push": "git push -u origin master"
+    "start": "node src/index"
   },
   "keywords": [],
   "author": "",

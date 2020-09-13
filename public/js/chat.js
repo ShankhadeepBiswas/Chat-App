@@ -9,7 +9,24 @@ const $message = document.querySelector('#messages')
 const $sidebartemplate = document.querySelector('#sidebar-template').innerHTML
 const $msgtemplate = document.querySelector('#msg-template').innerHTML
 const $locationtemplate = document.querySelector('#location-url-template').innerHTML
-
+//Important little functions
+const autoscroll =()=>{
+  //new message element
+  const newMsg= $message.lastElementChild;
+  //margin height of new message
+  const newMsgStyles = getComputedStyle(newMsg);
+  const newMsgMargin = parseInt(newMsgStyles.marginBottom);
+  const newMsgHeight = newMsg.offsetHeight + newMsgMargin;
+  //visible height
+  const visibleHeight = $message.offsetHeight
+  //Height of message container
+  const containerHeight = $message.scrollHeight;
+  //How far have I scrolled down
+  const scrollOffset = $message.scrollTop+visibleHeight
+  if(containerHeight - newMsgHeight <= scrollOffset){
+    $message.scrollTop= $message.scrollHeight
+  }
+}
 function disableState(){
   $messageFormInput.value =''
   $messageFormButton.setAttribute('disabled','disabled')
@@ -35,6 +52,7 @@ socket.on('Welcome',(msg)=>{                  // receives from server side
     createdAt : moment(msg.createdAt).format('h:mm a (L)')
   })        //which template to render using Mustache library
   $message.insertAdjacentHTML('beforeend',html)        //inserting each message in div element
+  autoscroll()
 })
 socket.on('roomData',({room,users})=>{
   const html = Mustache.render($sidebartemplate,{
@@ -76,6 +94,7 @@ socket.on('location-url',(URL)=>{
     url: URL.url,
     createdAt: moment(URL.createdAt).format('h:mm a (L)')})
   $message.insertAdjacentHTML('beforeend',html)
+  autoscroll()
 })
 socket.emit('join',{username,room},(error)=>{
   if(error){
