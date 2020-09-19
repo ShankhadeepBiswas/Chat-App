@@ -1,4 +1,5 @@
 const users=[]
+var rooms=[]
 const addUser = ({id,username,room})=>{
     //Cleaning data
     username=username.trim().toLowerCase()
@@ -30,9 +31,14 @@ const getUsersInRoom = (room)=>{
     room=room.trim().toLowerCase()
     return users.filter((user)=> user.room === room)
 }
+const getRooms = ()=>{
+    rooms= users.map((user)=>user.room)
+    return rooms.filter((room,index)=>rooms.indexOf(room)==index)
+}
 module.exports={
     addUser,
     removeUser,
     getUser,
-    getUsersInRoom
+    getUsersInRoom,
+    getRooms
 }

@@ -1,4 +1,4 @@
-{
+{ "name":"Shankhadeep's Chat App",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,8 @@
     "bad-words": "^3.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "file-system": "^2.2.2",
+    "multer": "^1.4.2",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 require('dotenv').config()
 const path = require('path') // core module
+const multer = require('multer')
 const express = require('express')
 const app=express();
 const Filter = require('bad-words')
@@ -8,15 +9,16 @@ const server = http.createServer(app)
 const socketio = require('socket.io')
 const io = socketio(server)                         //binding socketio server with raw http server
 const {generateMsg,generateLoc} = require('../public/js/message')
-const {addUser,removeUser,getUser,getUsersInRoom} = require('../src/utils/users')
-
+const {addUser,removeUser,getUser,getUsersInRoom,getRooms} = require('../src/utils/users')
 const port = process.env.PORT 
 
 app.use(express.static(path.join(__dirname,'../public')))
 
 io.on('connection',(socket)=>{             //socket contains info about connected client
+
     console.log("Web Socket Connection on!");
     const filter = new Filter()
+    socket.emit('Rooms',{rooms:getRooms()})
     socket.on('join',(options,callback)=>{
         const {error,user} = addUser({id : socket.id,...options})
         if(error){

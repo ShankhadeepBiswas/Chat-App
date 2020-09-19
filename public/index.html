@@ -9,14 +9,33 @@
     <div class="centered-form">
         <div class="centered-form__box">
             <h1>Join Room</h1>
-            <form action="/chat.html">
+            <form action="/chat.html" id="join-room-form">
                 <label><b>Enter Your Display Name</b></label>
                 <input type="text" name="username" placeholder="Your Display Name..." required>
                 <label><b>Create A Room Name</b></label>
                 <input type="text" name="room" placeholder="Your Room Name..." required>
                 <button>Join Now</button>
+                <div id="Rooms"></div>
             </form>
         </div>
     </div>
+    <script type="text/html" id="rooms-template">
+            <br>
+            <label><b>Available Rooms</b></label>
+            <ul id="roomlist">
+                {{#rooms}}
+                <li>{{.}}</li>
+                {{/rooms}}
+            </ul>
+    </script>
+    <style>
+        #roomlist{
+            list-style: none;
+            color: rgb(0, 24, 5);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/rooms.js"></script>
 </body>
 </html>
