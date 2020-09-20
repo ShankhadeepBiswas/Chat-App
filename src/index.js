@@ -1,6 +1,4 @@
-require('dotenv').config()
 const path = require('path') // core module
-const multer = require('multer')
 const express = require('express')
 const app=express();
 const Filter = require('bad-words')
