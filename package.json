@@ -1,13 +1,12 @@
 {
   "name": "shankhadeep-chatapp",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/index"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shankhadeep",
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.3",
@@ -16,5 +15,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShankhadeepBiswas/Chat-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShankhadeepBiswas/Chat-App/issues"
+  },
+  "homepage": "https://github.com/ShankhadeepBiswas/Chat-App#readme",
+  "description": ""
 }
